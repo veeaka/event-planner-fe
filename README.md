@@ -42,7 +42,7 @@ This is the frontend of the Event Planner application, built using **React**, **
 
 ### 1. Clone the Repository
 ```bash
-git clone <repository-url>
+git clone git@github.com:veeaka/event-planner-fe.git
 cd frontend
 ```
 
