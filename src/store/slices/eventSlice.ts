@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 import instance from "../../services/api";
 import { toastTypes } from "../../utilities/consts";
 import { showToast } from "../../utilities/helper";
@@ -133,7 +132,18 @@ export const fetchEvents = createAsyncThunk(
       const response = await instance.get<Event[]>(url);
 
       const existingEvents = (getState() as any).event.events;
-      const updatedEvents = [...existingEvents, ...response.data];
+
+      const eventsMap = new Map<string | number, Event>();
+
+      existingEvents.forEach((event: Event) => {
+        eventsMap.set(event.id, event);
+      });
+
+      response.data.forEach((event: Event) => {
+        eventsMap.set(event.id, event);
+      });
+
+      const updatedEvents = Array.from(eventsMap.values());
 
       dispatch(setEvents(updatedEvents));
 

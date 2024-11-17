@@ -4,6 +4,7 @@ import { Home } from "./pages/Home";
 import { Login } from "./pages/login";
 import { Register } from "./pages/Register";
 import { AUTH_TOKEN } from "./utilities/consts";
+import { CalendarView } from "./pages/CalendarView";
 
 interface RouteModel {
   key: string;
@@ -35,6 +36,13 @@ export const ProtectedRoutes: Array<RouteModel> = [
     path: "/",
     enabled: true,
     component: Home,
+  },
+  {
+    key: "calendar-view",
+    title: "Calendar View",
+    path: "/calendar-view",
+    enabled: true,
+    component: CalendarView,
   },
 ];
 

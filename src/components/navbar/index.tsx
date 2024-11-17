@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom"; // Import useLocation
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -19,17 +20,19 @@ import { setEventModalOpen } from "../../store/slices/eventSlice";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { AUTH_TOKEN } from "../../utilities/consts";
 
-const pages = ["Home"];
+const pages = ["Home", "Calendar View"];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
   const { isEventModalOpen } = useSelector((state: RootState) => state.event);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
-
-  const dispatch = useDispatch();
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
@@ -46,6 +49,25 @@ function ResponsiveAppBar() {
 
   const handleCloseModal = () => {
     dispatch(setEventModalOpen(false));
+  };
+
+  const handleNavigation = (page: string) => {
+    if (page === "Home") {
+      navigate("/");
+    } else if (page === "Calendar View") {
+      navigate("/calendar-view");
+    }
+    handleCloseNavMenu();
+  };
+
+  const isActive = (page: string) => {
+    if (page === "Home" && location.pathname === "/") {
+      return true;
+    }
+    if (page === "Calendar View" && location.pathname === "/calendar-view") {
+      return true;
+    }
+    return false;
   };
 
   return (
@@ -101,8 +123,15 @@ function ResponsiveAppBar() {
                 }}
               >
                 {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textTransform="capitalize" textAlign="center">
+                  <MenuItem key={page} onClick={() => handleNavigation(page)}>
+                    <Typography
+                      textTransform="capitalize"
+                      textAlign="center"
+                      sx={{
+                        fontWeight: isActive(page) ? 500 : 400,
+                        textDecoration: isActive(page) ? "underline" : "none",
+                      }}
+                    >
                       {page}
                     </Typography>
                   </MenuItem>
@@ -131,8 +160,14 @@ function ResponsiveAppBar() {
               {pages.map((page) => (
                 <Button
                   key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block" }}
+                  onClick={() => handleNavigation(page)}
+                  sx={{
+                    my: 2,
+                    color: "white",
+                    display: "block",
+                    fontWeight: isActive(page) ? 500 : 400,
+                    textDecoration: isActive(page) ? "underline" : "none",
+                  }}
                 >
                   {page}
                 </Button>
