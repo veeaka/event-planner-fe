@@ -1,8 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { AUTH_TOKEN, AUTH_TYPES } from "../../utilities/consts";
+import { AUTH_TOKEN, AUTH_TYPES, toastTypes } from "../../utilities/consts";
 import { RegisterFormInputs } from "../../components/auth/RegisterForm";
 import { LoginFormInputs } from "../../components/auth/LoginForm";
+import { showToast } from "../../utilities/helper";
 
 const apiWithoutToken = axios.create({
   baseURL: import.meta.env.VITE_BACKEND_URL,
@@ -36,19 +37,15 @@ export default authSlice.reducer;
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (formData: RegisterFormInputs, { dispatch }) => {
-    // dispatch(setIsRegistering(true));
     try {
       const response = await apiWithoutToken.post("register/", formData);
       console.log(response.data);
       localStorage.setItem(AUTH_TOKEN, response.data.token);
+      showToast("Registration Successfull!", toastTypes.SUCCESS);
       window.location.href = "/";
     } catch (error: any) {
-      // showToast("Failed to register, Please try again!", toastTypes.DANGER);
+      showToast("Failed to register, Please try again!", toastTypes.DANGER);
       console.log(error, "test");
-    } finally {
-      // setTimeout(() => {
-      //   dispatch(setIsRegistering(false));
-      // }, 2000);
     }
   }
 );
@@ -56,19 +53,14 @@ export const registerUser = createAsyncThunk(
 export const loginUser = createAsyncThunk(
   "auth/registerUser",
   async (formData: LoginFormInputs, { dispatch }) => {
-    // dispatch(setIsRegistering(true));
     try {
       const response = await apiWithoutToken.post("login/", formData);
       console.log(response.data);
       localStorage.setItem(AUTH_TOKEN, response.data.token);
+      showToast("Login successfull!", toastTypes.SUCCESS);
       window.location.href = "/";
     } catch (error: any) {
-      // showToast("Failed to register, Please try again!", toastTypes.DANGER);
-      console.log(error, "test");
-    } finally {
-      // setTimeout(() => {
-      //   dispatch(setIsRegistering(false));
-      // }, 2000);
+      showToast("Failed to login, Please try again!", toastTypes.DANGER);
     }
   }
 );

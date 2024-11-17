@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import instance from "../../services/api";
+import { toastTypes } from "../../utilities/consts";
+import { showToast } from "../../utilities/helper";
 
 export interface Event {
   id: string;
@@ -57,8 +59,6 @@ export const { setLoading, setError, setEvent, setEvents, setEventModalOpen } =
 
 export default eventSlice.reducer;
 
-// Async Thunks
-
 // Create Event
 export const createEvent = createAsyncThunk(
   "event/createEvent",
@@ -69,6 +69,7 @@ export const createEvent = createAsyncThunk(
       dispatch(fetchEvents({ type: "all" }));
       dispatch(setEvent(null));
       dispatch(setEventModalOpen(false));
+      showToast("Event created successfully !", toastTypes.SUCCESS);
 
       return response.data;
     } catch (error: any) {
@@ -90,6 +91,7 @@ export const editEvent = createAsyncThunk(
       dispatch(fetchEvents({ type: "all" }));
       dispatch(setEvent(null));
       dispatch(setEventModalOpen(false));
+      showToast("Event Updated successfully !", toastTypes.SUCCESS);
 
       return response.data;
     } catch (error: any) {
@@ -108,6 +110,7 @@ export const deleteEvent = createAsyncThunk(
       dispatch(fetchEvents({ type: "all" }));
       dispatch(setEvent(null));
       dispatch(setEventModalOpen(false));
+      showToast("Event Deleted successfully !", toastTypes.SUCCESS);
 
       return id;
     } catch (error: any) {

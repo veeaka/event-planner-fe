@@ -50,14 +50,14 @@ cd frontend
 
 ## 1. Start the Development Server
 
-## Using docker-compose, you can easily start the development server:
+### Using docker-compose, you can easily start the development server:
 ```bash
 docker-compose up --build
 ```
-## This will build and run the frontend in a Docker container. The application will be accessible at http://localhost:3000.
+### This will build and run the frontend in a Docker container. The application will be accessible at http://localhost:3000.
 ## 2. Stop the Server
 
-## To stop and remove the running container, use:
+### To stop and remove the running container, use:
 ```bash
 docker-compose down
 ```

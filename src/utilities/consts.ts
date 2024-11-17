@@ -4,3 +4,12 @@ export const AUTH_TYPES = {
 };
 
 export const AUTH_TOKEN = "auth_token";
+
+export const toastDuration = 3000;
+
+// Toast types
+export const toastTypes = {
+  SUCCESS: "success",
+  WARNING: "warning",
+  DANGER: "danger",
+};
