@@ -1,0 +1,14 @@
+version: '3.9'
+services:
+  vite-react-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80" # Map port 3000 on the host to port 80 in the container
+    container_name: event-planner
+    volumes:
+      - .:/app 
+    environment:
+      - NODE_ENV=production # Set environment variables if needed
+    restart: unless-stopped
