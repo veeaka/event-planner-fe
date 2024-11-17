@@ -19,9 +19,6 @@ This is the frontend of the Event Planner application, built using **React**, **
   - Mobile-friendly event cards.
   - Desktop-friendly table and calendar views.
 
-- **Calendar Integration**:
-  - Weekly, monthly, and daily views for event visualization using `react-big-calendar`.
-
 ---
 
 ## Tech Stack
@@ -31,13 +28,12 @@ This is the frontend of the Event Planner application, built using **React**, **
 - **Redux Toolkit** for state management.
 - **React Router** for routing.
 - **Date-fns** for date and time manipulation.
-- **React-Big-Calendar** for interactive event calendars.
 
 ---
 
 ## Prerequisites
 
-- **Node.js** (version 14 or later).
+- **Node.js** (version 18 or later).
 - **npm** or **Yarn** package manager.
 
 ---
