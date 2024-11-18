@@ -74,41 +74,10 @@ const EventTabs: React.FC = () => {
     handleCloseDialog();
   };
 
-  const handleAddEventClick = () => {
-    dispatch(setEventModalOpen(true));
-  };
-
   React.useEffect(() => {
     dispatch(fetchEvents({ type: "all" }));
   }, []);
 
-  const noEventsFound = events?.length === 0;
-
-  // if (!noEventsFound) {
-  //   return (
-  //     <Grid
-  //       display="flex"
-  //       flexDirection="column"
-  //       gap="20px"
-  //       width={400}
-  //       margin="150px auto"
-  //       justifyContent="center"
-  //       textAlign="center"
-  //     >
-  //       <img src={NoEventsFound} alt="no events found" />
-  //       <Typography variant="h4" fontWeight="bold">
-  //         Events Not found
-  //       </Typography>
-  //       <StyledButton
-  //         width="200px"
-  //         margin="0px auto"
-  //         onClick={handleAddEventClick}
-  //       >
-  //         + Add new Event
-  //       </StyledButton>
-  //     </Grid>
-  //   );
-  // }
   return (
     <Box
       sx={{
@@ -171,7 +140,6 @@ const EventTabs: React.FC = () => {
           )}
         </Grid>
       )}
-      {Boolean(events.length) && false && <CalendarComponent events={events} />}
 
       <DeleteEventDialog
         open={dialogOpen}
